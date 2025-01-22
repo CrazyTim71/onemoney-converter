@@ -20,17 +20,17 @@ class Transaction:
     note: str
 
 
-ONEMONEY_DATE_HEADERS = ["ДАТА"]
-ONEMONEY_DIRECTION_HEADERS = ["ТИП"]
+ONEMONEY_DATE_HEADERS = ["DATUM"]
+ONEMONEY_DIRECTION_HEADERS = ["TYP"]
 ONEMONEY_DIRECTION_MAP: dict[str, Direction] = {
-    "Доход": "income",
-    "Расход": "expense",
-    "Перевод": "transfer",
+    "Einnahme": "income",
+    "Ausgabe": "expense",
+    "Überweisung": "transfer",
 }
-ONEMONEY_SRC_HEADERS = ["СО СЧЁТА"]
-ONEMONEY_DEST_HEADERS = ["НА СЧЁТ/НА КАТЕГОРИЮ"]
-ONEMONEY_AMOUNT_HEADERS = ["СУММА"]
-ONEMONEY_NOTE_HEADERS = ["ЗАМЕТКИ"]
+ONEMONEY_SRC_HEADERS = ["VOM KONTO"]
+ONEMONEY_DEST_HEADERS = ["ZUM KONTO/ZUR KATEGORIE"]
+ONEMONEY_AMOUNT_HEADERS = ["BETRAG"]
+ONEMONEY_NOTE_HEADERS = ["NOTIZEN"]
 
 
 def get_onemoney_header(candidates: list[str], row: dict[str, str]) -> str:
