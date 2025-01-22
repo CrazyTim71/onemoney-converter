@@ -5,6 +5,7 @@ import argparse
 import csv
 from dataclasses import dataclass
 from typing import Literal
+from datetime import datetime
 
 
 Direction = Literal["income", "expense", "transfer"]
@@ -49,6 +50,11 @@ def get_onemoney_direction(row: dict[str, str]) -> Direction:
     except KeyError as e:
         raise ValueError(f"Unknown direction: {direction_str} (data: {row!r})") from e
 
+def fix_date(date: str) -> str:
+    date = date[:-2] + "20" + date[-2:] # convert 25 to 2025
+    parsed_date = datetime.strptime(date, "%d.%m.%Y")
+    return f"{parsed_date.strftime('%Y-%m-%d')} 00:00:00.000"
+
 
 def read_1money_csv(onemoney_file) -> list[Transaction]:
     reader = csv.DictReader(onemoney_file, quoting=csv.QUOTE_ALL)
@@ -58,7 +64,7 @@ def read_1money_csv(onemoney_file) -> list[Transaction]:
             break
         transactions.append(
             Transaction(
-                date=get_onemoney_header(ONEMONEY_DATE_HEADERS, row),
+                date=fix_date(get_onemoney_header(ONEMONEY_DATE_HEADERS, row)),
                 direction=get_onemoney_direction(row),
                 src=get_onemoney_header(ONEMONEY_SRC_HEADERS, row),
                 dest=get_onemoney_header(ONEMONEY_DEST_HEADERS, row),
@@ -108,7 +114,7 @@ def main() -> None:
         help="1Money CSV file",
     )
     parser.add_argument(
-        "output_file", type=argparse.FileType("w"), help="Cashew import file"
+        "output_file", type=argparse.FileType("w", encoding="utf-8"), help="Cashew import file"
     )
     args = parser.parse_args()
 
