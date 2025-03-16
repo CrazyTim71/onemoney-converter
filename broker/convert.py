@@ -13,7 +13,7 @@ def main() -> None:
         help="1Money CSV file",
     )
     parser.add_argument(
-        "output_file", type=argparse.FileType("w"), help="Cashew import file"
+        "output_file", type=argparse.FileType("w", encoding="utf-8-sig"), help="Cashew import file"
     )
     args = parser.parse_args()
 
