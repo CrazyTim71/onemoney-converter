@@ -1,1 +1,5 @@
-This script allows you to convert exported CSV files from the 1Money financial application into a CSV format that can be imported into the [Cashew financial application](https://cashewapp.web.app/). It facilitates the transition between these two applications and ensures that your financial data can be transferred seamlessly.
+# Broker
+
+* Convert data from defunct [1Money](https://play.google.com/store/apps/details?id=org.pixelrush.moneyiq) to
+  [Cashew](https://cashewapp.web.app/)
+* Synchronize Cashew data with bank transactions
